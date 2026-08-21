@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Dudhrejiya Krishn about student projects, learning opportunities, web development, and software development.">
+  <meta name="author" content="Dudhrejiya Krishn">
+  <title>Contact Dudhrejiya Krishn | Responsive Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html" aria-label="Dudhrejiya Krishn portfolio home">
+        <span class="brand__mark" aria-hidden="true">D</span>
+        <span>Dudhrejiya Krishn<span class="brand__accent">.dev</span></span>
+      </a>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" aria-pressed="false">
+        <span aria-hidden="true">◐</span>
+        <span data-theme-label>Dark mode</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-intro" aria-labelledby="contact-heading">
+      <div class="container">
+        <p class="eyebrow">Contact</p>
+        <h1 id="contact-heading">Let’s start a conversation.</h1>
+        <p>Use the form to send a message about a project, learning opportunity, or collaboration.</p>
+      </div>
+    </section>
+
+    <section class="section section--compact" aria-labelledby="form-heading">
+      <div class="container contact-layout">
+        <div class="contact-copy">
+          <p class="eyebrow">Get in touch</p>
+          <h2 id="form-heading">Tell me what you have in mind.</h2>
+          <p>I would be glad to hear about ideas, learning opportunities, or feedback on my work.</p>
+
+          <aside class="contact-note" aria-labelledby="form-note-heading">
+            <h3 id="form-note-heading">About this form</h3>
+            <p>This portfolio form uses accessible labels and browser validation. A form service or backend can be connected when the site is published.</p>
+          </aside>
+        </div>
+
+        <form class="contact-form" action="#" method="post" aria-describedby="form-help">
+          <p class="form-help" id="form-help">Fields marked with <span aria-hidden="true">*</span> are required.</p>
+
+          <div class="field">
+            <label for="name">Name <span aria-hidden="true">*</span></label>
+            <input id="name" name="name" type="text" autocomplete="name" minlength="2" required>
+          </div>
+
+          <div class="field">
+            <label for="email">Email <span aria-hidden="true">*</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+          </div>
+
+          <div class="field">
+            <label for="message">Message <span aria-hidden="true">*</span></label>
+            <textarea id="message" name="message" rows="7" minlength="10" required></textarea>
+          </div>
+
+          <button class="button button--primary" type="submit">Send message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div>
+        <a class="brand brand--footer" href="index.html" aria-label="Dudhrejiya Krishn portfolio home">Dudhrejiya Krishn<span class="brand__accent">.dev</span></a>
+        <p>Computer Engineering Student &amp; Aspiring Software Developer.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="footer-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html">Projects</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__copyright">© 2026 Dudhrejiya Krishn. Built with semantic HTML, CSS, and JavaScript.</p>
+    </div>
+  </footer>
+</body>
+</html>

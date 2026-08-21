@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="description"
+      content="A responsive, accessible to-do list built with vanilla JavaScript and local storage."
+    >
+    <meta name="author" content="Dudhrejiya Krishn">
+    <title>Focus List | To-Do App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to task manager</a>
+
+    <main id="main-content" class="app-main">
+      <section class="todo-app" aria-labelledby="app-title">
+        <header class="app-hero">
+          <p class="eyebrow">Task 3 &middot; JavaScript Logic &amp; State Management</p>
+          <h1 id="app-title">Focus List</h1>
+          <p class="hero-copy">A calm place to capture what matters and finish it with intention.</p>
+        </header>
+
+        <section class="composer-panel" aria-labelledby="add-task-heading">
+          <div class="section-heading">
+            <h2 id="add-task-heading">Add a task</h2>
+            <p id="task-input-help">Keep it short and actionable. Up to 160 characters.</p>
+          </div>
+
+          <form id="task-form" class="task-form" novalidate>
+            <div class="input-group">
+              <label for="task-input">What needs to be done?</label>
+              <input
+                id="task-input"
+                name="task"
+                type="text"
+                maxlength="160"
+                autocomplete="off"
+                placeholder="For example, review the project brief"
+                aria-describedby="task-input-help task-form-message"
+                required
+              >
+            </div>
+            <button class="button button-primary" type="submit">Add task</button>
+          </form>
+          <p id="task-form-message" class="form-message" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="task-panel" aria-labelledby="tasks-heading">
+          <div class="task-panel-heading">
+            <div>
+              <h2 id="tasks-heading">Your tasks</h2>
+              <p id="task-count" class="task-count" aria-live="polite">0 tasks &middot; 0 remaining</p>
+            </div>
+          </div>
+
+          <div class="task-toolbar">
+            <div id="filter-controls" class="filter-controls" role="group" aria-label="Filter tasks">
+              <button class="filter-button" type="button" data-filter="all" aria-pressed="true">All</button>
+              <button class="filter-button" type="button" data-filter="active" aria-pressed="false">Active</button>
+              <button class="filter-button" type="button" data-filter="completed" aria-pressed="false">Completed</button>
+            </div>
+            <button id="clear-completed" class="button button-secondary" type="button" disabled>
+              Clear completed
+            </button>
+          </div>
+
+          <p id="task-list-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+
+          <section id="empty-state" class="empty-state" aria-labelledby="empty-state-title" hidden>
+            <p class="empty-state-icon" aria-hidden="true">&#10003;</p>
+            <h3 id="empty-state-title">Your list is clear</h3>
+            <p id="empty-state-copy">Add a task above to get started.</p>
+          </section>
+
+          <ul id="task-list" class="task-list" aria-label="Task list"></ul>
+        </section>
+
+        <footer class="app-footer">
+          <p>Your list is saved automatically in this browser.</p>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>
