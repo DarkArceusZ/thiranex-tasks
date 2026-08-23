@@ -6,7 +6,10 @@
  */
 
 // API Configuration
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL =
+  window.location.protocol === "file:" || window.location.port === "8000"
+    ? "http://localhost:3000/api"
+    : "/api";
 const CART_STORAGE_KEY = "techhub-cart";
 
 // State
@@ -29,6 +32,7 @@ const resetFiltersBtn = document.querySelector("#reset-filters");
 const loadingState = document.querySelector("#loading-state");
 const errorState = document.querySelector("#error-state");
 const errorMessage = document.querySelector("#error-message");
+const retryButton = document.querySelector("#retry-button");
 const emptyState = document.querySelector("#empty-state");
 const resultsInfo = document.querySelector("#results-info");
 
@@ -59,6 +63,7 @@ async function init() {
   searchInput.addEventListener("input", handleFilterChange);
   sortSelect.addEventListener("change", handleFilterChange);
   resetFiltersBtn.addEventListener("click", resetFilters);
+  retryButton.addEventListener("click", loadProducts);
   cartButton.addEventListener("click", openCart);
   closeCartBtn.addEventListener("click", closeCart);
   cartOverlay.addEventListener("click", closeCart);

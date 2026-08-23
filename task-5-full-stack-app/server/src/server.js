@@ -7,6 +7,7 @@
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const products = require("./data");
 
 const app = express();
@@ -15,6 +16,7 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../../client")));
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -156,6 +158,10 @@ app.get("/api/health", (req, res) => {
  * 404 handler
  */
 app.use((req, res) => {
+  if (req.accepts("html")) {
+    return res.sendFile(path.join(__dirname, "../../client/index.html"));
+  }
+
   res.status(404).json({
     success: false,
     error: "Endpoint not found",

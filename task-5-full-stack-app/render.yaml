@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: thiranex-task-5
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
