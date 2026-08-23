@@ -179,6 +179,35 @@
       </article>
     </div>
 
+    <!-- Demo checkout -->
+    <div id="checkout-modal" class="product-modal checkout-modal" role="dialog" aria-modal="true" aria-labelledby="checkout-title" hidden>
+      <div class="product-modal-overlay" data-close-checkout></div>
+      <section class="product-modal-content checkout-content">
+        <button id="close-checkout" class="btn btn-icon product-modal-close" aria-label="Close checkout">✕</button>
+        <div class="product-modal-body">
+          <p class="product-category">Secure checkout</p>
+          <h2 id="checkout-title">Complete your order</h2>
+          <p class="checkout-note">Demo checkout only. No payment will be charged.</p>
+          <form id="checkout-form">
+            <div class="checkout-fields">
+              <label>Full name<input id="checkout-name" name="name" required autocomplete="name"></label>
+              <label>Email<input id="checkout-email" name="email" type="email" required autocomplete="email"></label>
+              <label>Delivery address<textarea id="checkout-address" name="address" rows="3" required autocomplete="street-address"></textarea></label>
+            </div>
+            <fieldset class="payment-methods">
+              <legend>Payment method</legend>
+              <label class="payment-option"><input type="radio" name="payment" value="Card" checked><span><strong>Card</strong><small>Credit or debit card</small></span></label>
+              <label class="payment-option"><input type="radio" name="payment" value="UPI"><span><strong>UPI</strong><small>Google Pay, PhonePe, or Paytm</small></span></label>
+              <label class="payment-option"><input type="radio" name="payment" value="Cash on Delivery"><span><strong>Cash on Delivery</strong><small>Pay when your order arrives</small></span></label>
+            </fieldset>
+            <div class="checkout-total"><span>Order total</span><strong id="checkout-total">$0.00</strong></div>
+            <button class="btn btn-primary btn-block" type="submit">Place Demo Order</button>
+          </form>
+          <p id="checkout-success" class="checkout-success" role="status" hidden></p>
+        </div>
+      </section>
+    </div>
+
     <!-- Footer -->
     <footer class="app-footer">
       <div class="container">

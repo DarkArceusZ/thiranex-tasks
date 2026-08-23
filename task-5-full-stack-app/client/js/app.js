@@ -51,6 +51,11 @@ const checkoutBtn = document.querySelector("#checkout-button");
 const productModal = document.querySelector("#product-modal");
 const closeProductModalBtn = document.querySelector("#close-product-modal");
 const modalAddToCartBtn = document.querySelector("#modal-add-to-cart");
+const checkoutModal = document.querySelector("#checkout-modal");
+const closeCheckoutBtn = document.querySelector("#close-checkout");
+const checkoutForm = document.querySelector("#checkout-form");
+const checkoutTotal = document.querySelector("#checkout-total");
+const checkoutSuccess = document.querySelector("#checkout-success");
 let selectedProduct = null;
 
 // Initialize
@@ -74,6 +79,11 @@ async function init() {
   continueShoppingBtn.addEventListener("click", closeCart);
   clearCartBtn.addEventListener("click", confirmClearCart);
   checkoutBtn.addEventListener("click", handleCheckout);
+  closeCheckoutBtn.addEventListener("click", closeCheckout);
+  checkoutForm.addEventListener("submit", handleCheckoutSubmit);
+  checkoutModal.addEventListener("click", (event) => {
+    if (event.target.matches("[data-close-checkout]")) closeCheckout();
+  });
   closeProductModalBtn.addEventListener("click", closeProductModal);
   modalAddToCartBtn.addEventListener("click", () => {
     if (selectedProduct) {
@@ -85,7 +95,9 @@ async function init() {
     if (event.target.matches("[data-close-modal]")) closeProductModal();
   });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeProductModal();
+    if (event.key !== "Escape") return;
+    closeProductModal();
+    closeCheckout();
   });
 
   // Load initial data
@@ -459,14 +471,37 @@ function confirmClearCart() {
 function handleCheckout() {
   if (cart.length === 0) return;
 
-  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0) * 1.1;
+  checkoutTotal.textContent = `$${getCartTotal().toFixed(2)}`;
+  checkoutForm.hidden = false;
+  checkoutSuccess.hidden = true;
+  checkoutModal.hidden = false;
+  cartDrawer.hidden = true;
+  document.body.style.overflow = "hidden";
+  closeCheckoutBtn.focus();
+}
 
-  alert(`Proceeding to checkout. Total: $${total.toFixed(2)}\n\nNote: This is a demo. No actual payment will be processed.`);
+function handleCheckoutSubmit(event) {
+  event.preventDefault();
+
+  const formData = new FormData(checkoutForm);
+  const orderNumber = `TH-${Date.now().toString().slice(-6)}`;
+  checkoutForm.hidden = true;
+  checkoutSuccess.textContent = `Order ${orderNumber} confirmed with ${formData.get("payment")}. This demo order has not charged you.`;
+  checkoutSuccess.hidden = false;
 
   cart = [];
   saveCartToStorage();
   updateCartUI();
-  closeCart();
+}
+
+function closeCheckout() {
+  checkoutModal.hidden = true;
+  document.body.style.overflow = "";
+}
+
+function getCartTotal() {
+  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  return subtotal * 1.1;
 }
 
 /**

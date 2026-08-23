@@ -970,6 +970,109 @@ body {
     width: 100%;
   }
 
+
+  /* Checkout */
+  .checkout-content {
+    display: block;
+    max-width: 620px;
+  }
+
+  .checkout-note {
+    margin: -0.25rem 0 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+
+  .checkout-fields {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .checkout-fields label {
+    display: grid;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .checkout-fields input,
+  .checkout-fields textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-small);
+    background: var(--surface-color);
+    color: var(--text-primary);
+    font: inherit;
+    resize: vertical;
+  }
+
+  .checkout-fields input:focus,
+  .checkout-fields textarea:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+  }
+
+  .payment-methods {
+    display: grid;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .payment-methods legend {
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+  }
+
+  .payment-option {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-small);
+    cursor: pointer;
+  }
+
+  .payment-option:has(input:checked) {
+    border-color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.08);
+  }
+
+  .payment-option span {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .payment-option small {
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .checkout-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .checkout-total strong {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+  }
+
+  .checkout-success {
+    margin: 0;
+    padding: 1.25rem;
+    border-radius: var(--radius-small);
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--success-color);
+    font-weight: 600;
+  }
   .product-price {
     font-size: 1rem;
   }
