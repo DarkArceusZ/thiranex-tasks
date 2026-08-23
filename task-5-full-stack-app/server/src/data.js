@@ -123,7 +123,7 @@ const products = [
     name: "Desk Organizer",
     category: "accessories",
     price: 19.99,
-    image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=85",
+    image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=85",
     description: "Bamboo desk organizer with multiple compartments for office supplies.",
     specifications: { Material: "Bamboo", Compartments: "Multiple", Use: "Office supplies" },
     inStock: true,
