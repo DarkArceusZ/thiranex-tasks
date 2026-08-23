@@ -134,6 +134,20 @@ html[data-theme="dark"] .account-button:hover {
 .cart-label {
   font-size: 0.9rem;
 }
+  .cart-drawer[hidden],
+  .product-modal[hidden],
+  .loading-state[hidden],
+  .error-state[hidden],
+  .empty-state[hidden],
+  .empty-cart-state[hidden],
+  .cart-items[hidden],
+  .cart-summary[hidden],
+  #account-name-field[hidden],
+  #checkout-form[hidden],
+  #checkout-success[hidden],
+  #account-message[hidden] {
+    display: none !important;
+  }
 
 .cart-count {
   position: absolute;
