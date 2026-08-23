@@ -129,6 +129,7 @@ async function init() {
     if (event.key !== "Escape") return;
     closeProductModal();
     closeCheckout();
+    closeAccount();
   });
 
   // Load initial data
@@ -154,6 +155,8 @@ function toggleTheme() {
 }
 
 function openAccount() {
+  closeProductModal();
+  closeCheckout();
   if (currentUser) {
     accountTitle.textContent = `Welcome, ${currentUser.name}`;
     accountForm.hidden = true;
@@ -246,6 +249,7 @@ function logout() {
   accountMessage.textContent = "You have been logged out.";
   accountMessage.hidden = false;
   setAccountMode("login");
+  closeAccount();
 }
 
 /**
