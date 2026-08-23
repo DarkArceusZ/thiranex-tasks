@@ -22,6 +22,7 @@
             <h1><a href="index.html" aria-label="TechHub home">TechHub</a></h1>
           </div>
           <div class="nav-actions">
+            <button id="account-button" class="btn account-button" type="button" aria-label="Open account">Account</button>
             <button id="theme-toggle" class="btn theme-toggle" type="button" aria-label="Switch to dark mode" title="Switch theme">
               <span id="theme-icon" aria-hidden="true">☾</span>
               <span id="theme-label">Light</span>
@@ -209,6 +210,33 @@
             <button class="btn btn-primary btn-block" type="submit">Place Demo Order</button>
           </form>
           <p id="checkout-success" class="checkout-success" role="status" hidden></p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Demo account modal -->
+    <div id="account-modal" class="product-modal account-modal" role="dialog" aria-modal="true" aria-labelledby="account-title" hidden>
+      <div class="product-modal-overlay" data-close-account></div>
+      <section class="product-modal-content account-content">
+        <button id="close-account" class="btn btn-icon product-modal-close" aria-label="Close account">✕</button>
+        <div class="product-modal-body">
+          <p class="product-category">TechHub account</p>
+          <h2 id="account-title">Welcome back</h2>
+          <p class="checkout-note">Demo account access for this project.</p>
+          <div class="account-tabs" role="tablist" aria-label="Account access">
+            <button id="login-tab" class="account-tab active" type="button" role="tab" aria-selected="true">Login</button>
+            <button id="register-tab" class="account-tab" type="button" role="tab" aria-selected="false">Register</button>
+          </div>
+          <form id="account-form">
+            <div class="checkout-fields">
+              <label id="account-name-field" hidden>Full name<input id="account-name" name="name" autocomplete="name"></label>
+              <label>Email<input id="account-email" name="email" type="email" required autocomplete="email"></label>
+              <label>Password<input id="account-password" name="password" type="password" minlength="6" required autocomplete="current-password"></label>
+            </div>
+            <button id="account-submit" class="btn btn-primary btn-block" type="submit">Login</button>
+          </form>
+          <button id="account-logout" class="btn btn-secondary btn-block" type="button" hidden>Log out</button>
+          <p id="account-message" class="checkout-success" role="status" hidden></p>
         </div>
       </section>
     </div>

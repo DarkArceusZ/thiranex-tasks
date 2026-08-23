@@ -107,6 +107,24 @@ html[data-theme="dark"] .cart-button:hover {
   font-size: 0.9rem;
 }
 
+.account-button {
+  min-width: 86px;
+  padding-inline: 0.75rem;
+  background: var(--surface-alt);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.account-button:hover {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #ffffff;
+}
+
+html[data-theme="dark"] .account-button:hover {
+  color: #101828;
+}
+
 .cart-icon {
   display: inline-flex;
   font-size: 1.2rem;
@@ -942,6 +960,43 @@ html[data-theme="dark"] .btn-primary {
   background: rgba(16, 185, 129, 0.12);
   color: var(--success-color);
   font-weight: 600;
+}
+
+.account-content {
+  display: block;
+  max-width: 520px;
+}
+
+.account-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  margin: 1.5rem 0;
+  padding: 0.25rem;
+  background: var(--surface-alt);
+  border-radius: var(--radius-small);
+}
+
+.account-tab {
+  min-height: 42px;
+  border: 0;
+  border-radius: var(--radius-small);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.account-tab.active {
+  background: var(--surface-color);
+  color: var(--primary-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.account-tab:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
 }
 
 /* Accessibility */

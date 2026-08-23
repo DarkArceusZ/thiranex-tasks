@@ -9,6 +9,7 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const products = require("./data");
+const { authenticate, login, register } = require("./auth");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -22,6 +23,32 @@ app.use(express.static(path.join(__dirname, "../../client")));
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
   next();
+});
+
+app.post("/api/auth/register", async (req, res) => {
+  try {
+    const result = await register(req.body.name, req.body.email, req.body.password);
+    if (result.error) return res.status(result.status).json({ success: false, error: result.error });
+    res.status(201).json({ success: true, user: result.user, token: result.token });
+  } catch (error) {
+    console.error("Registration error:", error);
+    res.status(500).json({ success: false, error: "Unable to create account" });
+  }
+});
+
+app.post("/api/auth/login", async (req, res) => {
+  try {
+    const result = await login(req.body.email, req.body.password);
+    if (result.error) return res.status(result.status).json({ success: false, error: result.error });
+    res.json({ success: true, user: result.user, token: result.token });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({ success: false, error: "Unable to log in" });
+  }
+});
+
+app.get("/api/auth/me", authenticate, (req, res) => {
+  res.json({ success: true, user: req.user });
 });
 
 /**

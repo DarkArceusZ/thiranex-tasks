@@ -59,8 +59,22 @@ const closeCheckoutBtn = document.querySelector("#close-checkout");
 const checkoutForm = document.querySelector("#checkout-form");
 const checkoutTotal = document.querySelector("#checkout-total");
 const checkoutSuccess = document.querySelector("#checkout-success");
+const accountButton = document.querySelector("#account-button");
+const accountModal = document.querySelector("#account-modal");
+const closeAccountBtn = document.querySelector("#close-account");
+const accountForm = document.querySelector("#account-form");
+const accountNameField = document.querySelector("#account-name-field");
+const accountTitle = document.querySelector("#account-title");
+const accountSubmit = document.querySelector("#account-submit");
+const accountMessage = document.querySelector("#account-message");
+const accountLogout = document.querySelector("#account-logout");
+const loginTab = document.querySelector("#login-tab");
+const registerTab = document.querySelector("#register-tab");
 let selectedProduct = null;
 const THEME_STORAGE_KEY = "techhub-theme";
+const AUTH_TOKEN_KEY = "techhub-auth-token";
+let currentUser = null;
+let accountMode = "login";
 
 // Initialize
 document.addEventListener("DOMContentLoaded", init);
@@ -70,6 +84,8 @@ document.addEventListener("DOMContentLoaded", init);
  */
 async function init() {
   applyTheme(localStorage.getItem(THEME_STORAGE_KEY) || "light");
+  await restoreSession();
+  updateAccountButton();
   loadCartFromStorage();
   updateCartUI();
 
@@ -78,6 +94,15 @@ async function init() {
   sortSelect.addEventListener("change", handleFilterChange);
   resetFiltersBtn.addEventListener("click", resetFilters);
   themeToggle.addEventListener("click", toggleTheme);
+  accountButton.addEventListener("click", openAccount);
+  closeAccountBtn.addEventListener("click", closeAccount);
+  accountModal.addEventListener("click", (event) => {
+    if (event.target.matches("[data-close-account]")) closeAccount();
+  });
+  loginTab.addEventListener("click", () => setAccountMode("login"));
+  registerTab.addEventListener("click", () => setAccountMode("register"));
+  accountForm.addEventListener("submit", handleAccountSubmit);
+  accountLogout.addEventListener("click", logout);
   retryButton.addEventListener("click", loadProducts);
   cartButton.addEventListener("click", openCart);
   closeCartBtn.addEventListener("click", closeCart);
@@ -126,6 +151,101 @@ function toggleTheme() {
   const nextTheme = currentTheme === "dark" ? "light" : "dark";
   localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
   applyTheme(nextTheme);
+}
+
+function openAccount() {
+  if (currentUser) {
+    accountTitle.textContent = `Welcome, ${currentUser.name}`;
+    accountForm.hidden = true;
+    accountLogout.hidden = false;
+    accountMessage.textContent = `Logged in as ${currentUser.email}.`;
+    accountMessage.hidden = false;
+  } else {
+    setAccountMode("login");
+  }
+  accountModal.hidden = false;
+  document.body.style.overflow = "hidden";
+  closeAccountBtn.focus();
+}
+
+function closeAccount() {
+  accountModal.hidden = true;
+  document.body.style.overflow = checkoutModal.hidden && productModal.hidden && cartDrawer.hidden ? "" : "hidden";
+}
+
+function setAccountMode(mode) {
+  accountMode = mode;
+  const registering = mode === "register";
+  accountNameField.hidden = !registering;
+  accountNameField.querySelector("input").required = registering;
+  loginTab.classList.toggle("active", !registering);
+  registerTab.classList.toggle("active", registering);
+  loginTab.setAttribute("aria-selected", String(!registering));
+  registerTab.setAttribute("aria-selected", String(registering));
+  accountTitle.textContent = registering ? "Create your account" : "Welcome back";
+  accountSubmit.textContent = registering ? "Create Account" : "Login";
+  accountMessage.hidden = true;
+  accountForm.hidden = false;
+  accountLogout.hidden = true;
+}
+
+async function handleAccountSubmit(event) {
+  event.preventDefault();
+  const formData = new FormData(accountForm);
+  const endpoint = accountMode === "register" ? "register" : "login";
+  const response = await fetch(`${API_BASE_URL}/auth/${endpoint}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    }),
+  });
+  const data = await response.json();
+  if (!response.ok) {
+    accountMessage.textContent = data.error || "Unable to authenticate";
+    accountMessage.hidden = false;
+    return;
+  }
+  localStorage.setItem(AUTH_TOKEN_KEY, data.token);
+  currentUser = data.user;
+  accountForm.reset();
+  openAccount();
+  updateAccountButton();
+}
+
+async function restoreSession() {
+  const token = localStorage.getItem(AUTH_TOKEN_KEY);
+  if (!token) return;
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (response.ok) {
+      currentUser = (await response.json()).user;
+      return;
+    }
+  } catch {
+    accountMessage.textContent = "Account service is unavailable. You can still browse products.";
+    accountMessage.hidden = false;
+  }
+  if (!currentUser) {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
+  }
+}
+
+function updateAccountButton() {
+  accountButton.textContent = currentUser ? currentUser.name : "Account";
+}
+
+function logout() {
+  localStorage.removeItem(AUTH_TOKEN_KEY);
+  currentUser = null;
+  updateAccountButton();
+  accountMessage.textContent = "You have been logged out.";
+  accountMessage.hidden = false;
+  setAccountMode("login");
 }
 
 /**

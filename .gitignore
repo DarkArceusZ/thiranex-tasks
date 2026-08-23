@@ -5,6 +5,8 @@
 
 # Dependencies and build output
 node_modules/
+task-5-full-stack-app/server/users.json
+task-5-full-stack-app/server/users.json.tmp
 dist/
 build/
 coverage/
