@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", init);
  * Initialize the application
  */
 async function init() {
-  applyTheme(localStorage.getItem(THEME_STORAGE_KEY) || "system");
+  applyTheme(localStorage.getItem(THEME_STORAGE_KEY) || "light");
   loadCartFromStorage();
   updateCartUI();
 
@@ -112,17 +112,18 @@ async function init() {
 }
 
 function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const activeTheme = theme === "dark" ? "dark" : "light";
+  document.documentElement.dataset.theme = activeTheme;
+  const isDark = activeTheme === "dark";
   themeIcon.textContent = isDark ? "☀" : "☾";
-  themeLabel.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+  themeLabel.textContent = activeTheme.charAt(0).toUpperCase() + activeTheme.slice(1);
   themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
-  themeToggle.title = `Theme: ${theme}. Click to change`;
+  themeToggle.title = `Theme: ${activeTheme}. Click to change`;
 }
 
 function toggleTheme() {
-  const currentTheme = document.documentElement.dataset.theme || "system";
-  const nextTheme = currentTheme === "light" ? "dark" : currentTheme === "dark" ? "system" : "light";
+  const currentTheme = document.documentElement.dataset.theme || "light";
+  const nextTheme = currentTheme === "dark" ? "light" : "dark";
   localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
   applyTheme(nextTheme);
 }
