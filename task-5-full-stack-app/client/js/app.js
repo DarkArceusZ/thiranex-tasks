@@ -48,6 +48,10 @@ const cartSummary = document.querySelector("#cart-summary");
 const continueShoppingBtn = document.querySelector("#continue-shopping");
 const clearCartBtn = document.querySelector("#clear-cart");
 const checkoutBtn = document.querySelector("#checkout-button");
+const productModal = document.querySelector("#product-modal");
+const closeProductModalBtn = document.querySelector("#close-product-modal");
+const modalAddToCartBtn = document.querySelector("#modal-add-to-cart");
+let selectedProduct = null;
 
 // Initialize
 document.addEventListener("DOMContentLoaded", init);
@@ -70,6 +74,19 @@ async function init() {
   continueShoppingBtn.addEventListener("click", closeCart);
   clearCartBtn.addEventListener("click", confirmClearCart);
   checkoutBtn.addEventListener("click", handleCheckout);
+  closeProductModalBtn.addEventListener("click", closeProductModal);
+  modalAddToCartBtn.addEventListener("click", () => {
+    if (selectedProduct) {
+      addToCart(selectedProduct);
+      closeProductModal();
+    }
+  });
+  productModal.addEventListener("click", (event) => {
+    if (event.target.matches("[data-close-modal]")) closeProductModal();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeProductModal();
+  });
 
   // Load initial data
   await loadCategories();
@@ -219,8 +236,48 @@ function createProductCard(product) {
 
   const addBtn = card.querySelector(".add-to-cart-btn");
   addBtn.addEventListener("click", () => addToCart(product));
+  card.addEventListener("click", (event) => {
+    if (!event.target.closest("button")) openProductModal(product);
+  });
 
   return card;
+}
+
+function openProductModal(product) {
+  selectedProduct = product;
+  document.querySelector("#modal-product-category").textContent = categoryLabel(product.category);
+  document.querySelector("#modal-product-name").textContent = product.name;
+  document.querySelector("#modal-product-rating").textContent = `${"⭐".repeat(Math.round(product.rating))} ${product.rating} / 5`;
+  document.querySelector("#modal-product-description").textContent = product.description;
+  document.querySelector("#modal-product-price").textContent = `$${product.price.toFixed(2)}`;
+  document.querySelector("#modal-product-stock").textContent = product.inStock ? "In stock" : "Out of stock";
+  modalAddToCartBtn.disabled = !product.inStock;
+  modalAddToCartBtn.textContent = product.inStock ? "Add to Cart" : "Out of Stock";
+
+  const specifications = document.querySelector("#modal-product-specifications");
+  specifications.innerHTML = Object.entries(product.specifications || {})
+    .map(([label, value]) => `<dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd>`)
+    .join("");
+
+  const imageContainer = document.querySelector("#modal-product-image");
+  imageContainer.innerHTML = `<img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}">`;
+  imageContainer.querySelector("img").addEventListener("error", () => {
+    imageContainer.innerHTML = '<span class="image-fallback visible" aria-hidden="true">📦</span>';
+  });
+  productModal.hidden = false;
+  document.body.style.overflow = "hidden";
+  closeProductModalBtn.focus();
+}
+
+function closeProductModal() {
+  if (productModal.hidden) return;
+  productModal.hidden = true;
+  document.body.style.overflow = cartDrawer.hidden ? "" : "hidden";
+  selectedProduct = null;
+}
+
+function categoryLabel(category) {
+  return category.charAt(0).toUpperCase() + category.slice(1);
 }
 
 /**

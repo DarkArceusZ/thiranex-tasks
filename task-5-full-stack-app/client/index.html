@@ -157,6 +157,28 @@
       </div>
     </div>
 
+    <!-- Product Details Modal -->
+    <div id="product-modal" class="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-product-name" hidden>
+      <div class="product-modal-overlay" data-close-modal></div>
+      <article class="product-modal-content">
+        <button id="close-product-modal" class="btn btn-icon product-modal-close" aria-label="Close product details">✕</button>
+        <div id="modal-product-image" class="modal-product-image"></div>
+        <div class="product-modal-body">
+          <p id="modal-product-category" class="product-category"></p>
+          <h2 id="modal-product-name"></h2>
+          <p id="modal-product-rating" class="product-rating"></p>
+          <p id="modal-product-description" class="modal-description"></p>
+          <h3>Specifications</h3>
+          <dl id="modal-product-specifications" class="specifications-list"></dl>
+          <div class="modal-product-footer">
+            <strong id="modal-product-price"></strong>
+            <span id="modal-product-stock" class="stock-status"></span>
+            <button id="modal-add-to-cart" class="btn btn-primary">Add to Cart</button>
+          </div>
+        </div>
+      </article>
+    </div>
+
     <!-- Footer -->
     <footer class="app-footer">
       <div class="container">
