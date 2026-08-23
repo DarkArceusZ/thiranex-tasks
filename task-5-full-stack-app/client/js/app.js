@@ -631,6 +631,16 @@ function confirmClearCart() {
 function handleCheckout() {
   if (cart.length === 0) return;
 
+  if (!currentUser) {
+    closeCart();
+    setAccountMode("login");
+    accountMessage.textContent = "Please log in before checkout.";
+    accountMessage.classList.remove("account-error");
+    accountMessage.hidden = false;
+    openAccount();
+    return;
+  }
+
   checkoutTotal.textContent = `$${getCartTotal().toFixed(2)}`;
   checkoutForm.hidden = false;
   checkoutSuccess.hidden = true;
@@ -642,6 +652,16 @@ function handleCheckout() {
 
 function handleCheckoutSubmit(event) {
   event.preventDefault();
+
+  if (!currentUser) {
+    closeCheckout();
+    setAccountMode("login");
+    accountMessage.textContent = "Please log in before placing your order.";
+    accountMessage.classList.remove("account-error");
+    accountMessage.hidden = false;
+    openAccount();
+    return;
+  }
 
   const formData = new FormData(checkoutForm);
   const orderNumber = `TH-${Date.now().toString().slice(-6)}`;
