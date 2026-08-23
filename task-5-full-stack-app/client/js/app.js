@@ -66,7 +66,6 @@ const accountForm = document.querySelector("#account-form");
 const accountNameField = document.querySelector("#account-name-field");
 const accountTitle = document.querySelector("#account-title");
 const accountSubmit = document.querySelector("#account-submit");
-const accountCancel = document.querySelector("#account-cancel");
 const accountMessage = document.querySelector("#account-message");
 const accountLogout = document.querySelector("#account-logout");
 const loginTab = document.querySelector("#login-tab");
@@ -103,7 +102,6 @@ async function init() {
   loginTab.addEventListener("click", () => setAccountMode("login"));
   registerTab.addEventListener("click", () => setAccountMode("register"));
   accountForm.addEventListener("submit", handleAccountSubmit);
-  accountCancel.addEventListener("click", closeAccount);
   accountLogout.addEventListener("click", logout);
   retryButton.addEventListener("click", loadProducts);
   cartButton.addEventListener("click", openCart);
@@ -198,27 +196,39 @@ async function handleAccountSubmit(event) {
   event.preventDefault();
   const formData = new FormData(accountForm);
   const endpoint = accountMode === "register" ? "register" : "login";
-  const response = await fetch(`${API_BASE_URL}/auth/${endpoint}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password"),
-    }),
-  });
-  const data = await response.json();
-  if (!response.ok) {
-    accountMessage.textContent = data.error || "Unable to authenticate";
+  accountSubmit.disabled = true;
+  accountMessage.hidden = true;
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/auth/${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: accountMode === "register" ? formData.get("name") : undefined,
+        email: formData.get("email"),
+        password: formData.get("password"),
+      }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      accountMessage.textContent = data.error || "Unable to authenticate";
+      accountMessage.classList.add("account-error");
+      accountMessage.hidden = false;
+      return;
+    }
+    localStorage.setItem(AUTH_TOKEN_KEY, data.token);
+    currentUser = data.user;
+    accountForm.reset();
+    updateAccountButton();
+    closeAccount();
+    showCartNotification(accountMode === "register" ? "Account created successfully" : "Logged in successfully");
+  } catch {
+    accountMessage.textContent = "Unable to connect to the account service. Please try again.";
+    accountMessage.classList.add("account-error");
     accountMessage.hidden = false;
-    return;
+  } finally {
+    accountSubmit.disabled = false;
   }
-  localStorage.setItem(AUTH_TOKEN_KEY, data.token);
-  currentUser = data.user;
-  accountForm.reset();
-  updateAccountButton();
-  closeAccount();
-  showCartNotification(accountMode === "register" ? "Account created successfully" : "Logged in successfully");
 }
 
 async function restoreSession() {
