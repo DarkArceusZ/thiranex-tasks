@@ -233,7 +233,10 @@
               <label>Email<input id="account-email" name="email" type="email" required autocomplete="email"></label>
               <label>Password<input id="account-password" name="password" type="password" minlength="6" required autocomplete="current-password"></label>
             </div>
-            <button id="account-submit" class="btn btn-primary btn-block" type="submit">Login</button>
+            <div class="account-form-actions">
+              <button id="account-submit" class="btn btn-primary" type="submit">Login</button>
+              <button id="account-cancel" class="btn btn-secondary" type="button">Cancel</button>
+            </div>
           </form>
           <button id="account-logout" class="btn btn-secondary btn-block" type="button" hidden>Log out</button>
           <p id="account-message" class="checkout-success" role="status" hidden></p>

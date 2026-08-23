@@ -66,6 +66,7 @@ const accountForm = document.querySelector("#account-form");
 const accountNameField = document.querySelector("#account-name-field");
 const accountTitle = document.querySelector("#account-title");
 const accountSubmit = document.querySelector("#account-submit");
+const accountCancel = document.querySelector("#account-cancel");
 const accountMessage = document.querySelector("#account-message");
 const accountLogout = document.querySelector("#account-logout");
 const loginTab = document.querySelector("#login-tab");
@@ -102,6 +103,7 @@ async function init() {
   loginTab.addEventListener("click", () => setAccountMode("login"));
   registerTab.addEventListener("click", () => setAccountMode("register"));
   accountForm.addEventListener("submit", handleAccountSubmit);
+  accountCancel.addEventListener("click", closeAccount);
   accountLogout.addEventListener("click", logout);
   retryButton.addEventListener("click", loadProducts);
   cartButton.addEventListener("click", openCart);
@@ -214,8 +216,9 @@ async function handleAccountSubmit(event) {
   localStorage.setItem(AUTH_TOKEN_KEY, data.token);
   currentUser = data.user;
   accountForm.reset();
-  openAccount();
   updateAccountButton();
+  closeAccount();
+  showCartNotification(accountMode === "register" ? "Account created successfully" : "Logged in successfully");
 }
 
 async function restoreSession() {
