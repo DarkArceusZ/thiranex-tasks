@@ -170,7 +170,9 @@ body {
 }
 
 .theme-toggle {
-  font-size: 1.25rem;
+  min-width: 96px;
+  padding-inline: 0.75rem;
+  font-size: 0.9rem;
 }
 
 .cart-icon {

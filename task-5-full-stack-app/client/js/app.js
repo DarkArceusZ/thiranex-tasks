@@ -41,6 +41,7 @@ const cartButton = document.querySelector("#cart-button");
 const cartCount = document.querySelector("#cart-count");
 const themeToggle = document.querySelector("#theme-toggle");
 const themeIcon = document.querySelector("#theme-icon");
+const themeLabel = document.querySelector("#theme-label");
 const cartDrawer = document.querySelector("#cart-drawer");
 const closeCartBtn = document.querySelector("#close-cart");
 const cartOverlay = document.querySelector(".cart-overlay");
@@ -114,6 +115,7 @@ function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
   const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
   themeIcon.textContent = isDark ? "☀" : "☾";
+  themeLabel.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
   themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
   themeToggle.title = `Theme: ${theme}. Click to change`;
 }
