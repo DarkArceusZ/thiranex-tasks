@@ -39,6 +39,8 @@ const resultsInfo = document.querySelector("#results-info");
 // Cart elements
 const cartButton = document.querySelector("#cart-button");
 const cartCount = document.querySelector("#cart-count");
+const themeToggle = document.querySelector("#theme-toggle");
+const themeIcon = document.querySelector("#theme-icon");
 const cartDrawer = document.querySelector("#cart-drawer");
 const closeCartBtn = document.querySelector("#close-cart");
 const cartOverlay = document.querySelector(".cart-overlay");
@@ -57,6 +59,7 @@ const checkoutForm = document.querySelector("#checkout-form");
 const checkoutTotal = document.querySelector("#checkout-total");
 const checkoutSuccess = document.querySelector("#checkout-success");
 let selectedProduct = null;
+const THEME_STORAGE_KEY = "techhub-theme";
 
 // Initialize
 document.addEventListener("DOMContentLoaded", init);
@@ -65,6 +68,7 @@ document.addEventListener("DOMContentLoaded", init);
  * Initialize the application
  */
 async function init() {
+  applyTheme(localStorage.getItem(THEME_STORAGE_KEY) || "system");
   loadCartFromStorage();
   updateCartUI();
 
@@ -72,6 +76,7 @@ async function init() {
   searchInput.addEventListener("input", handleFilterChange);
   sortSelect.addEventListener("change", handleFilterChange);
   resetFiltersBtn.addEventListener("click", resetFilters);
+  themeToggle.addEventListener("click", toggleTheme);
   retryButton.addEventListener("click", loadProducts);
   cartButton.addEventListener("click", openCart);
   closeCartBtn.addEventListener("click", closeCart);
@@ -103,6 +108,21 @@ async function init() {
   // Load initial data
   await loadCategories();
   await loadProducts();
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  themeIcon.textContent = isDark ? "☀" : "☾";
+  themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+  themeToggle.title = `Theme: ${theme}. Click to change`;
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.dataset.theme || "system";
+  const nextTheme = currentTheme === "light" ? "dark" : currentTheme === "dark" ? "system" : "light";
+  localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+  applyTheme(nextTheme);
 }
 
 /**
