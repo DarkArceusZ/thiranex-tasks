@@ -194,7 +194,8 @@ function createProductCard(product) {
 
   card.innerHTML = `
     <div class="product-image">
-      <span aria-hidden="true">📦</span>
+      <img src="${escapeHtml(product.image)}" alt="${escapeHtml(product.name)}" loading="lazy">
+      <span class="image-fallback" aria-hidden="true">📦</span>
     </div>
     <div class="product-body">
       <p class="product-category">${categoryLabel}</p>
@@ -209,6 +210,12 @@ function createProductCard(product) {
       </div>
     </div>
   `;
+
+  const productImage = card.querySelector(".product-image img");
+  productImage.addEventListener("error", () => {
+    productImage.hidden = true;
+    card.querySelector(".image-fallback").classList.add("visible");
+  });
 
   const addBtn = card.querySelector(".add-to-cart-btn");
   addBtn.addEventListener("click", () => addToCart(product));
@@ -326,7 +333,10 @@ function renderCartItems() {
     const subtotal = (item.price * item.quantity).toFixed(2);
 
     itemElement.innerHTML = `
-      <div class="cart-item-image">📦</div>
+      <div class="cart-item-image">
+        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy">
+        <span class="image-fallback" aria-hidden="true">📦</span>
+      </div>
       <div class="cart-item-details">
         <h4 class="cart-item-name">${escapeHtml(item.name)}</h4>
         <p class="cart-item-price">$${item.price.toFixed(2)} each</p>
@@ -344,6 +354,12 @@ function renderCartItems() {
     const decreaseBtn = itemElement.querySelector(".qty-decrease");
     const increaseBtn = itemElement.querySelector(".qty-increase");
     const removeBtn = itemElement.querySelector(".remove-item-btn");
+
+    const cartImage = itemElement.querySelector(".cart-item-image img");
+    cartImage.addEventListener("error", () => {
+      cartImage.hidden = true;
+      itemElement.querySelector(".cart-item-image .image-fallback").classList.add("visible");
+    });
 
     decreaseBtn.addEventListener("click", () => updateQuantity(item.id, item.quantity - 1));
     increaseBtn.addEventListener("click", () => updateQuantity(item.id, item.quantity + 1));
