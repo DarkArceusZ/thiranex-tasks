@@ -1,0 +1,17 @@
+{
+  "name": "thiranex-task-5-server",
+  "version": "1.0.0",
+  "description": "Backend server for Thiranex Task 5 - Full-Stack E-Commerce Application",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "keywords": ["express", "api", "ecommerce"],
+  "author": "Krishn Dudhrejiya",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}

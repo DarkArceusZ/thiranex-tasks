@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Real-time weather dashboard showing current weather conditions for any city using the Open-Meteo API.">
+  <meta name="author" content="Krishn Dudhrejiya">
+  <title>Weather Dashboard | Real-Time Weather</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header class="app-header">
+      <div class="header-content">
+        <h1>Weather Dashboard</h1>
+        <p class="header-subtitle">Real-time weather information for any location</p>
+      </div>
+    </header>
+
+    <main id="main-content" class="app-main">
+      <section class="search-section" aria-labelledby="search-heading">
+        <div class="container">
+          <h2 id="search-heading" class="sr-only">Search for weather</h2>
+          
+          <form id="weather-form" class="search-form" novalidate>
+            <div class="input-group">
+              <label for="city-input" class="sr-only">Enter city name</label>
+              <input
+                id="city-input"
+                type="text"
+                placeholder="Enter city name (e.g., London, New York, Tokyo)"
+                autocomplete="off"
+                aria-describedby="search-help search-message"
+                required
+              >
+              <button type="submit" class="btn btn-primary" aria-label="Search for weather">
+                <span class="btn-text">Search</span>
+                <span class="btn-icon" aria-hidden="true">🔍</span>
+              </button>
+            </div>
+            <p id="search-help" class="help-text">Try searching for any city worldwide</p>
+            <p id="search-message" class="status-message" role="status" aria-live="polite" aria-atomic="true"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="content-section" aria-labelledby="weather-heading">
+        <div class="container">
+          <h2 id="weather-heading" class="sr-only">Weather information</h2>
+
+          <!-- Loading State -->
+          <div id="loading-state" class="loading-state" hidden>
+            <div class="spinner" aria-hidden="true"></div>
+            <p>Loading weather data...</p>
+          </div>
+
+          <!-- Error State -->
+          <div id="error-state" class="error-state" role="alert" hidden>
+            <p class="error-icon" aria-hidden="true">⚠️</p>
+            <p id="error-message"></p>
+          </div>
+
+          <!-- Empty State -->
+          <div id="empty-state" class="empty-state">
+            <p class="empty-icon" aria-hidden="true">🌤️</p>
+            <h3>Welcome to Weather Dashboard</h3>
+            <p>Search for a city above to see the current weather conditions.</p>
+          </div>
+
+          <!-- Weather Card -->
+          <div id="weather-card" class="weather-card" hidden>
+            <div class="weather-header">
+              <div class="location-info">
+                <h3 id="location-name" class="location-name"></h3>
+                <p id="location-coords" class="location-coords"></p>
+                <p id="weather-time" class="weather-time"></p>
+              </div>
+              <div class="weather-icon-large">
+                <p id="weather-emoji" aria-label="Weather condition icon" role="img"></p>
+              </div>
+            </div>
+
+            <div class="weather-current">
+              <div class="temperature-section">
+                <div class="temp-display">
+                  <span id="temperature" class="temperature">--</span>
+                  <span class="temp-unit">°C</span>
+                </div>
+                <p id="weather-description" class="weather-description"></p>
+                <p id="feels-like" class="feels-like"></p>
+              </div>
+            </div>
+
+            <div class="weather-details">
+              <div class="detail-card">
+                <p class="detail-label">Humidity</p>
+                <p id="humidity" class="detail-value">--%</p>
+              </div>
+              <div class="detail-card">
+                <p class="detail-label">Wind Speed</p>
+                <p id="wind-speed" class="detail-value">-- km/h</p>
+              </div>
+              <div class="detail-card">
+                <p class="detail-label">Pressure</p>
+                <p id="pressure" class="detail-value">-- hPa</p>
+              </div>
+              <div class="detail-card">
+                <p class="detail-label">UV Index</p>
+                <p id="uv-index" class="detail-value">--</p>
+              </div>
+              <div class="detail-card">
+                <p class="detail-label">Visibility</p>
+                <p id="visibility" class="detail-value">-- km</p>
+              </div>
+              <div class="detail-card">
+                <p class="detail-label">Cloud Cover</p>
+                <p id="cloud-cover" class="detail-value">--%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-section">
+        <div class="container">
+          <div class="info-box">
+            <h3>About This Application</h3>
+            <p>This weather dashboard uses the <strong>Open-Meteo API</strong>, a free and open-source weather API that requires no API key.</p>
+            <p><strong>Features:</strong></p>
+            <ul>
+              <li>Real-time weather data for any city worldwide</li>
+              <li>Current temperature and conditions</li>
+              <li>Detailed weather metrics (humidity, wind, pressure, UV index)</li>
+              <li>Responsive design for all devices</li>
+              <li>No API key required</li>
+            </ul>
+            <p><em>Data source: <a href="https://open-meteo.com" target="_blank" rel="noopener noreferrer">Open-Meteo</a></em></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="container">
+        <p>&copy; 2026 Krishn Dudhrejiya | Weather Dashboard | Thiranex Internship Task 4</p>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

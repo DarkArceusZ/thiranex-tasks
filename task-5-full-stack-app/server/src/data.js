@@ -1,0 +1,133 @@
+/**
+ * Product data for the e-commerce store
+ * This simulates a database of products
+ */
+
+const products = [
+  {
+    id: 1,
+    name: "Laptop Stand",
+    category: "accessories",
+    price: 49.99,
+    image: "laptop-stand.jpg",
+    description:
+      "Adjustable aluminum laptop stand for better ergonomics and cooling. Compatible with all laptop sizes.",
+    inStock: true,
+    rating: 4.5,
+  },
+  {
+    id: 2,
+    name: "Wireless Mouse",
+    category: "accessories",
+    price: 29.99,
+    image: "wireless-mouse.jpg",
+    description: "Ergonomic wireless mouse with 2.4GHz connection. 18-month battery life.",
+    inStock: true,
+    rating: 4.3,
+  },
+  {
+    id: 3,
+    name: "USB-C Hub",
+    category: "electronics",
+    price: 79.99,
+    image: "usb-c-hub.jpg",
+    description:
+      "7-in-1 USB-C hub with HDMI, USB 3.0 ports, SD card reader, and power delivery up to 100W.",
+    inStock: true,
+    rating: 4.6,
+  },
+  {
+    id: 4,
+    name: "Mechanical Keyboard",
+    category: "accessories",
+    price: 129.99,
+    image: "mechanical-keyboard.jpg",
+    description:
+      "RGB mechanical keyboard with Cherry MX switches. Programmable keys and aluminum frame.",
+    inStock: true,
+    rating: 4.7,
+  },
+  {
+    id: 5,
+    name: "4K Monitor",
+    category: "electronics",
+    price: 399.99,
+    image: "4k-monitor.jpg",
+    description: "27-inch 4K UHD monitor with 99% sRGB color accuracy. Ideal for content creation.",
+    inStock: true,
+    rating: 4.4,
+  },
+  {
+    id: 6,
+    name: "Webcam",
+    category: "electronics",
+    price: 89.99,
+    image: "webcam.jpg",
+    description: "1080p HD webcam with auto-focus and built-in stereo microphone.",
+    inStock: true,
+    rating: 4.2,
+  },
+  {
+    id: 7,
+    name: "Monitor Arm",
+    category: "accessories",
+    price: 59.99,
+    image: "monitor-arm.jpg",
+    description: "Gas spring monitor arm for single displays. VESA compatible, supports up to 17 lbs.",
+    inStock: true,
+    rating: 4.5,
+  },
+  {
+    id: 8,
+    name: "Desk Lamp",
+    category: "accessories",
+    price: 39.99,
+    image: "desk-lamp.jpg",
+    description:
+      "LED desk lamp with adjustable brightness and color temperature. Touch control and USB charging port.",
+    inStock: true,
+    rating: 4.4,
+  },
+  {
+    id: 9,
+    name: "Wireless Charger",
+    category: "electronics",
+    price: 24.99,
+    image: "wireless-charger.jpg",
+    description: "Fast wireless charging pad. Compatible with Qi-enabled devices.",
+    inStock: true,
+    rating: 4.1,
+  },
+  {
+    id: 10,
+    name: "Portable SSD",
+    category: "electronics",
+    price: 149.99,
+    image: "portable-ssd.jpg",
+    description: "1TB portable SSD with USB 3.1. Compact and durable design.",
+    inStock: true,
+    rating: 4.6,
+  },
+  {
+    id: 11,
+    name: "Desk Organizer",
+    category: "accessories",
+    price: 19.99,
+    image: "desk-organizer.jpg",
+    description: "Bamboo desk organizer with multiple compartments for office supplies.",
+    inStock: true,
+    rating: 4.3,
+  },
+  {
+    id: 12,
+    name: "Phone Stand",
+    category: "accessories",
+    price: 14.99,
+    image: "phone-stand.jpg",
+    description: "Adjustable phone stand compatible with all smartphone sizes.",
+    inStock: true,
+    rating: 4.2,
+  },
+];
+
+module.exports = products;
